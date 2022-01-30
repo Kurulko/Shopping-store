@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Добавить";
+}
+
+@model Car
+
+<form method="post" class="form-group">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <p class="col-md-6 mb-3">
+        <label asp-for="Name"></label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <input asp-for="Name" class="form-control"/>
+        <br />
+
+        <label asp-for="PriceDollars"></label>
+        <span asp-validation-for="PriceDollars" class="text-danger"></span>
+        <input asp-for="PriceDollars" class="form-control" />
+        <br />
+
+        <label asp-for="UrlImage"></label>
+        <span asp-validation-for="UrlImage" class="text-danger"></span>
+        <input asp-for="UrlImage" class="form-control" />
+        <br />
+
+        <label asp-for="Description"></label>
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <textarea asp-for="Description" placeholder="Описание" class="form-control"></textarea>
+        <br />
+
+        <input type="submit" value="Добавить" class="btn btn-primary" />
+    </p>
+</form>

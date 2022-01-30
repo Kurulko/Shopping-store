@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+@model Car
+
+<h4>Товар:</h4>
+
+<div class="d-flex justify-content-center">
+    <div class="card">
+        <img class="card-img-top" src="@Model.UrlImage" alt="@Model.Name" width="310" height="210">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Format.FormatMoney(Model.PriceDollars.Value)</p>
+        </div>
+    </div>
+</div>
+
+<h4>Был успешно добавлен в корзину</h4>
+<br />
+<a class="btn btn-primary" asp-action="Index" asp-controller="Home">Продолжить покупки</a>
+<a class="btn btn-primary" asp-action="ListOfCars" asp-controller="ShoppingCart">
+    Оформить заказ
+</a>

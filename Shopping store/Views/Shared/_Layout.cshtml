@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Shopping_store</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        .header {
+            width: 100%;
+            height: 50px;
+            background-color: #202224;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="text-center">
+            <div class="d-flex justify-content-around">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div><a class="btn btn-outline-secondary" asp-action="Logout" asp-controller="Account">Выйти</a></div>
+                }
+                else
+                {
+                    <div>
+                        <a class="btn btn-outline-secondary" asp-action="Register" asp-controller="Account">Зарегистрироваться</a>
+                        <a class="btn btn-outline-secondary" asp-action="Login" asp-controller="Account">Войти</a>
+                    </div>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div><h4><em>Автомобили</em></h4></div>
+                    <div><a class="btn btn-outline-info" asp-action="ListOfCars" asp-controller="ShoppingCart">Корзина</a></div>
+                }
+                else
+                {
+                    <div><h4><em>Добро пожаловать!</em></h4></div>
+                    <div></div>
+                }
+            </div>
+        </div>
+    </header>
+    <br />
+    <br />
+
+    <div class="text-center">
+        <em>
+            @RenderBody()
+        </em>
+    </div>
+
+    <footer>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

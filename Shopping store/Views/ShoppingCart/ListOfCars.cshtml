@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Корзина";
+}
+
+@model CarsAndUserId
+
+<h2>Моя корзина</h2>
+
+@if (Model.Cars.Any())
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Название</td>
+                <td>Цена</td>
+                <td colspan="3">Кол-во</td>
+                <td>№</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Car car in Model.Cars)
+            {
+                int countOfCar = car.Counts.FirstOrDefault(c => c.UserId == Model.UserId && c.CarId == car.Id).CountOfCars;
+                <tr>
+                    <td>@car.Name</td>
+                    <td>@Format.FormatMoney(car.PriceDollars.Value)</td>
+                    <td>@countOfCar</td>
+                    <td> 
+                        <a asp-action="Add" asp-controller="ShoppingCart" asp-route-carId="@car.Id" asp-route-url="ListOfCars"
+                        class="btn btn-info">+</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-carId="@car.Id">-</a>
+                    </td>
+                    <td>@car.Id.ToString()</td>
+                    <td>
+                        <a asp-action="Description" asp-controller="ShoppingCart" asp-route-carId="@car.Id" 
+                        class="btn btn-info">Перейти</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-carId="@car.Id" asp-route-all="@true">
+                            Удалить
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                @{
+                    int count = 0;
+                    foreach (Car car in Model.Cars)
+                    {
+                        int countOfCar = car.Counts.FirstOrDefault(c => c.UserId == Model.UserId && c.CarId == car.Id)
+                        .CountOfCars;
+                        count += car.PriceDollars.Value * countOfCar;
+                    }
+                }
+                <td>Общая стоимость:</td>
+                <td colspan="4">@Format.FormatMoney(count)</td>
+                <td colspan="3">
+                    <a class="btn btn-danger" asp-action="DeleteAll">
+                        Удалить все
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <a class="btn btn-primary" asp-action="Result">Купить</a>
+}
+else
+{
+    <hr />
+    <h3>Ваша корзина пуста</h3>
+    <img src="https://origin-steam.su/images/cart_empty.png?1b2ee67da0f16fc4ea6f1b944d4fe487"
+     alt="Пусто...(">
+}
+<a class="btn btn-primary" asp-action="Index" asp-controller="Home">Продолжить покупки</a>
+

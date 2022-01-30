@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Авторизация";
+}
+
+@model LoginViewModel
+
+<form method="post" class="form-group">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <p class="col-md-6 mb-3">
+
+        <label asp-for="Email"></label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <input asp-for="Email" class="form-control"/>
+        <br />
+
+        <label asp-for="Password"></label>
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <input asp-for="Password" class="form-control"/>
+        <br />
+
+        <label asp-for="RememberMe"></label>
+        <span asp-validation-for="RememberMe" class="text-danger"></span>
+        <input asp-for="RememberMe" class="form-control"/>
+        <br />
+
+        <input type="submit" value="Войти" class="btn btn-primary"/>
+    </p>
+</form>

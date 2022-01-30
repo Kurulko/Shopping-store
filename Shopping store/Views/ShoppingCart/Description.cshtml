@@ -1,0 +1,12 @@
+﻿@model Car
+
+@{
+    string name = Model.Name;
+    ViewData["Title"] = name;
+}
+<h2>@name</h2>
+<hr />
+<p>@Model.Description</p>
+<br />
+<a class="btn btn-primary" asp-action="Index" asp-controller="Home">Продолжить покупки</a>
+<a asp-action="Add" asp-controller="ShoppingCart"  asp-route-carId="@Model.Id" class="btn btn-primary">Купить</a>

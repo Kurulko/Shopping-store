@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<Car>
+
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="Add" asp-controller="Admin" class="btn btn-primary">Добавить</a>
+    <hr />
+}
+
+@{
+    bool end = false;
+}
+
+@for (int i = 0; i < Model.Count; i++)
+{
+    if (end)
+        break;
+    <div class="d-flex justify-content-center">
+        <div class="card-deck">
+            @for (int j = i; j < Model.Count; j++)
+            {
+
+                <div class="card border-primary btn-outline-primary" style="width: 10rem;">
+                    <a asp-action="Description" asp-controller="ShoppingCart" asp-route-carId="@Model[j].Id">
+                        <img src="@Model[j].UrlImage" class="card-img-top" alt="@Model[j].Name">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model[j].Name</h5>
+                        <p class="card-text">@Format.FormatMoney(Model[j].PriceDollars.Value)</p>
+                        <a asp-action="Add" asp-controller="ShoppingCart" asp-route-carId="@Model[j].Id"
+                   class="btn btn-primary">В корзину</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <hr />
+                            <a asp-action="Update" asp-controller="Admin" asp-route-carId="@Model[j].Id" class="btn btn-primary">Изменить</a>
+                            <hr />
+                            <a asp-action="Delete" asp-controller="Admin" asp-route-carId="@Model[j].Id" class="btn btn-danger">Удалить</a>
+                        }
+                    </div>
+                </div>
+
+                if (j == Model.Count - 1)
+                    end = true;
+                if ((j + 1) % 3 == 0)
+                {
+                    i = j;
+                    break;
+                }
+            }
+        </div>
+    </div>
+    <br />
+}
